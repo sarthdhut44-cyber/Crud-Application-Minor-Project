@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenith — Premium Task & Productivity Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Decorative background glows -->
+  <div class="bg-glow-orbs">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- --- SIDEBAR NAVIGATION --- -->
+    <aside class="sidebar" id="sidebar">
+      <div class="logo-section">
+        <div class="logo-icon">
+          <!-- Sparkle/Logo SVG -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <span class="logo-text">Zenith</span>
+      </div>
+
+      <!-- Main Navigation -->
+      <nav class="nav-section">
+        <span class="nav-title">Navigation</span>
+        <ul class="nav-list">
+          <li class="nav-item active" data-view="dashboard">
+            <button>
+              <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg>
+              <span>Dashboard</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="board">
+            <button>
+              <svg viewBox="0 0 24 24"><path d="M12 5V19M5 12H19" stroke-linecap="round"/></svg>
+              <span>Board (Kanban)</span>
+            </button>
+          </li>
+          <li class="nav-item" data-view="list">
+            <button>
+              <svg viewBox="0 0 24 24"><path d="M8 6H21M8 12H21M8 18H21M3 6H3.01M3 12H3.01M3 18H3.01" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              <span>List View</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-divider"></div>
+
+      <!-- Categories Tags -->
+      <div class="nav-section">
+        <span class="nav-title">Categories</span>
+        <div class="category-filters" id="sidebar-categories">
+          <button class="category-btn active" data-category="all">
+            <span><span class="category-dot" style="background-color: var(--color-primary);"></span>All Tasks</span>
+            <span class="category-count" id="count-all">0</span>
+          </button>
+          <button class="category-btn" data-category="Work">
+            <span><span class="category-dot" style="background-color: #a855f7;"></span>Work</span>
+            <span class="category-count" id="count-work">0</span>
+          </button>
+          <button class="category-btn" data-category="Personal">
+            <span><span class="category-dot" style="background-color: #06b6d4;"></span>Personal</span>
+            <span class="category-count" id="count-personal">0</span>
+          </button>
+          <button class="category-btn" data-category="Shopping">
+            <span><span class="category-dot" style="background-color: #f43f5e;"></span>Shopping</span>
+            <span class="category-count" id="count-shopping">0</span>
+          </button>
+          <button class="category-btn" data-category="Health">
+            <span><span class="category-dot" style="background-color: #10b981;"></span>Health</span>
+            <span class="category-count" id="count-health">0</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Sidebar Footer -->
+      <div class="sidebar-footer">
+        <!-- Theme Switcher -->
+        <div class="theme-toggle-container">
+          <button class="theme-btn" id="theme-light">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke-linecap="round"/></svg>
+            <span>Light</span>
+          </button>
+          <button class="theme-btn active" id="theme-dark">
+            <svg viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke-linecap="round"/></svg>
+            <span>Dark</span>
+          </button>
+        </div>
+
+        <!-- User profile panel -->
+        <div class="user-panel">
+          <div class="user-avatar">JD</div>
+          <div class="user-meta">
+            <span class="user-name">John Doe</span>
+            <span class="user-role">Productivity Pro</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- --- MAIN CONTENT AREA --- -->
+    <main class="main-content">
+      <!-- Content Header -->
+      <header class="content-header">
+        <div class="header-titles">
+          <h1 id="view-title">Dashboard Overview</h1>
+          <p id="view-subtitle">Track your goals, performance metrics, and pending tasks.</p>
+        </div>
+        <div class="header-controls">
+          <!-- Search Bar -->
+          <div class="search-wrapper">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35" stroke-linecap="round"/></svg>
+            <input type="text" id="global-search" class="search-input" placeholder="Search tasks...">
+          </div>
+          <!-- Add Task Button -->
+          <button class="btn-primary" id="btn-add-task">
+            <svg viewBox="0 0 24 24"><path d="M12 5V19M5 12H19" stroke-linecap="round"/></svg>
+            <span>New Task</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- --- VIEW 1: DASHBOARD OVERVIEW --- -->
+      <div class="view-panel active" id="view-dashboard">
+        <!-- Metric Cards -->
+        <div class="dashboard-grid">
+          <div class="metric-card">
+            <div class="metric-icon-box tasks">
+              <svg viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-value" id="stat-total">0</span>
+              <span class="metric-label">Total Tasks</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-box completed">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-value" id="stat-completed">0</span>
+              <span class="metric-label">Completed</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-box progress">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-value" id="stat-in-progress">0</span>
+              <span class="metric-label">In Progress</span>
+            </div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon-box productivity">
+              <!-- Lightning SVG -->
+              <svg viewBox="0 0 24 24"><path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="metric-info">
+              <span class="metric-value" id="stat-productivity">0%</span>
+              <span class="metric-label">Productivity Index</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analytics and Recent Tasks -->
+        <div class="analytics-section">
+          <!-- Productivity Trend (SVG Chart) -->
+          <div class="chart-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">
+                <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Productivity Trend (Last 7 Days)
+              </h3>
+            </div>
+            <div class="chart-wrapper">
+              <svg class="chart-svg" id="productivity-chart" viewBox="0 0 600 240">
+                <!-- SVG patterns / definitions for gradients -->
+                <defs>
+                  <linearGradient id="chart-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--color-primary)" />
+                    <stop offset="100%" stop-color="#a855f7" />
+                  </linearGradient>
+                  <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.3" />
+                    <stop offset="100%" stop-color="#a855f7" stop-opacity="0" />
+                  </linearGradient>
+                </defs>
+                <!-- Grid & curves will be inserted by JS -->
+              </svg>
+              <!-- Chart Tooltip -->
+              <div class="chart-tooltip" id="chart-tooltip">12 completed</div>
+            </div>
+          </div>
+
+          <!-- Upcoming/Recent Tasks list -->
+          <div class="recent-panel">
+            <div class="panel-header">
+              <h3 class="panel-title">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2" stroke-linecap="round"/></svg>
+                Upcoming Deadlines
+              </h3>
+            </div>
+            <div class="recent-tasks-list" id="dashboard-recent-list">
+              <!-- Filled dynamically by JavaScript -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- --- VIEW 2: BOARD (KANBAN) --- -->
+      <div class="view-panel" id="view-board">
+        <div class="board-container">
+          <!-- Column 1: Todo -->
+          <div class="board-column" id="col-todo" data-status="Todo">
+            <div class="column-header">
+              <div class="column-title-wrapper">
+                <span class="column-indicator todo"></span>
+                <span class="column-title">To Do</span>
+              </div>
+              <span class="column-count" id="count-todo">0</span>
+            </div>
+            <div class="cards-list" id="list-todo">
+              <!-- Task cards inserted here -->
+            </div>
+          </div>
+
+          <!-- Column 2: Progress -->
+          <div class="board-column" id="col-progress" data-status="In Progress">
+            <div class="column-header">
+              <div class="column-title-wrapper">
+                <span class="column-indicator progress"></span>
+                <span class="column-title">In Progress</span>
+              </div>
+              <span class="column-count" id="count-progress">0</span>
+            </div>
+            <div class="cards-list" id="list-progress">
+              <!-- Task cards inserted here -->
+            </div>
+          </div>
+
+          <!-- Column 3: Completed -->
+          <div class="board-column" id="col-completed" data-status="Completed">
+            <div class="column-header">
+              <div class="column-title-wrapper">
+                <span class="column-indicator completed"></span>
+                <span class="column-title">Completed</span>
+              </div>
+              <span class="column-count" id="count-completed">0</span>
+            </div>
+            <div class="cards-list" id="list-completed">
+              <!-- Task cards inserted here -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- --- VIEW 3: LIST VIEW --- -->
+      <div class="view-panel" id="view-list">
+        <!-- Controls Panel -->
+        <div class="list-controls-panel">
+          <div class="filters-left">
+            <!-- Filter by Priority -->
+            <div class="filter-select-wrapper">
+              <select id="filter-priority" class="filter-select">
+                <option value="all">All Priorities</option>
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+              </select>
+              <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+
+            <!-- Filter by Status -->
+            <div class="filter-select-wrapper">
+              <select id="filter-status" class="filter-select">
+                <option value="all">All Statuses</option>
+                <option value="Todo">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+              <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+
+          <!-- Sorting controls -->
+          <div class="filters-right">
+            <div class="filter-select-wrapper">
+              <select id="sort-tasks" class="filter-select">
+                <option value="dueDate-asc">Due Date: Ascending</option>
+                <option value="dueDate-desc">Due Date: Descending</option>
+                <option value="priority-desc">Priority: High to Low</option>
+                <option value="priority-asc">Priority: Low to High</option>
+                <option value="title-asc">Title: A to Z</option>
+              </select>
+              <svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tabular Grid -->
+        <div class="table-wrapper">
+          <table class="task-table">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Due Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="task-table-body">
+              <!-- Populated dynamically by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- --- MODAL: CREATE / EDIT TASK --- -->
+  <div class="modal-overlay" id="task-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modal-title-text">Create New Task</h3>
+        <button class="btn-modal-close" id="btn-close-modal">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <form id="task-form">
+        <div class="modal-body">
+          <input type="hidden" id="task-id">
+          
+          <!-- Title -->
+          <div class="form-group">
+            <label for="task-title" class="form-label">Task Title</label>
+            <input type="text" id="task-title" class="form-input" placeholder="e.g. Design UI prototypes" required>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="task-desc" class="form-label">Description</label>
+            <textarea id="task-desc" class="form-input" style="min-height: 80px; resize: vertical;" placeholder="Add details about this task..."></textarea>
+          </div>
+
+          <!-- Row for Category and Due Date -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="task-category" class="form-label">Category</label>
+              <select id="task-category" class="form-input">
+                <option value="Work">Work</option>
+                <option value="Personal">Personal</option>
+                <option value="Shopping">Shopping</option>
+                <option value="Health">Health</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task-due-date" class="form-label">Due Date</label>
+              <input type="date" id="task-due-date" class="form-input" required>
+            </div>
+          </div>
+
+          <!-- Row for Priority and Status -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="task-priority" class="form-label">Priority</label>
+              <select id="task-priority" class="form-input">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="task-status" class="form-label">Status</label>
+              <select id="task-status" class="form-input">
+                <option value="Todo">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn-secondary" id="btn-cancel-modal">Cancel</button>
+          <button type="submit" class="btn-primary" id="btn-submit-task">Save Task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- --- TOAST NOTIFICATIONS --- -->
+  <div class="toast-container" id="toast-container">
+    <!-- Toast boxes slide in here via JS -->
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
